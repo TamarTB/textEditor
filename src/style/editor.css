@@ -1,0 +1,40 @@
+.keyboard-container {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 12px 0;
+  background-color: #fbfdff;
+  border: 1px solid #eef5fb;
+  border-radius: 10px;
+  padding: 10px 12px;
+  box-shadow: 0 8px 24px rgba(2,6,23,0.04);
+}
+
+/* שורות מקשים - נפרסות לרוחב עם ריווח אחיד */
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  flex-wrap: nowrap;
+  padding: 0 8px;
+}
+
+/* אם המסך קטן - נתיר לייבא שורות */
+@media (max-width: 640px) {
+  .keyboard-row {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+}
+
+/* שורת השליטה בתחתית */
+.keyboard-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
