@@ -6,6 +6,12 @@ import ColorButton from './buttons/colorButtons'
 import ChangeLangButton from './buttons/changeLangButtons'
 import DeleteButton from './buttons/deleteButtons'
 import UndoButton from './buttons/undoButtons'
+import SizeButtons from './buttons/sizeButtons'
+import SearchButtons from './buttons/searchButtons'
+import ChangeButtons from './buttons/changeButtons'
+
+
+
 
 
 function Editor({ text, setText, style, setStyle }) {
@@ -41,18 +47,15 @@ function Editor({ text, setText, style, setStyle }) {
         setLayoutIndex((prev) => (prev + 1) % layouts.length);
     };
 
-    const deleteLastChar = () => {
-        setText(text.slice(0, -1)); // מחזיר את כל הטקסט בלי התו האחרון
-    };
-
     const [history, setHistory] = useState([]);
 
     const handleChange = () => {
-        setHistory((prev) => [...prev, {text,style}]);
+        setHistory((prev) => [...prev, { text, style }]);
     };
 
     return (
         <div className="keyboard-container">
+            
             {layouts[layoutIndex].map((row, rowIndex) => (
                 <div className="keyboard-row" key={rowIndex}>
                     {row.map((letter) => (
@@ -68,15 +71,23 @@ function Editor({ text, setText, style, setStyle }) {
                 </div>
             ))}
             <div className="keyboard-controls">
-              <ChangeLangButton changeLayout={changeLayout} />
-              <DeleteButton deleteLastChar={deleteLastChar} handleChange={handleChange} />
-              <UndoButton history={history} setHistory={setHistory} setText={setText} setStyle={setStyle}/>
-              {layoutIndex < 2 && (
-                  <FontButton style={style} setStyle={setStyle} historyChange={handleChange}/>
-              )}
-              {layoutIndex < 2 && (
-                  <ColorButton style={style} setStyle={setStyle} historyChange={handleChange}/>
-              )}
+                <ChangeLangButton changeLayout={changeLayout} />
+                <DeleteButton text={text} setText={setText} handleChange={handleChange} />
+                <UndoButton history={history} setHistory={setHistory} setText={setText} setStyle={setStyle} />
+
+            </div>
+            <div className="keyboard-style">
+                {layoutIndex < 2 && (
+                    <FontButton style={style} setStyle={setStyle} historyChange={handleChange} />
+                )}
+                {layoutIndex < 2 && (
+                    <ColorButton style={style} setStyle={setStyle} historyChange={handleChange} />
+                )}
+                <SizeButtons style={style} setStyle={setStyle} historyChange={handleChange} />
+            </div>
+            <div className='charControl'>
+                <SearchButtons text={text} />
+                <ChangeButtons text={text} setText={setText} historyChange={handleChange} />
             </div>
         </div>
     );
