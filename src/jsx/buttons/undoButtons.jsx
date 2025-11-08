@@ -13,7 +13,7 @@ function UndoButtons({ history, setHistory, setText, setStyle }) {
   };
 
   return (
-    <button className='undoButton' onClick={handleUndo}>↩️</button>
+    <button className='undoButton' title="undo " onClick={handleUndo}>↩️</button>
   );
 };
 

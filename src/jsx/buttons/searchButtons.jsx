@@ -17,7 +17,7 @@ function SearchButtons({ text }) {
     return (
         <>
             <input id="searchInput" placeholder="Enter letter" value={letter} onChange={(e) => setLetter(e.target.value)} />
-            <button onClick={handleClick}>Search</button>
+            <button onClick={handleClick} title="search char">Search</button>
         </>
     )
 }

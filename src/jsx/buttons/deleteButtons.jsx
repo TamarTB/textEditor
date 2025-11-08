@@ -23,9 +23,9 @@ function DeleteButtons({ text, setText, handleChange }) {
     };
     return (
         <>
-            <button id="deleteChar" className='deleteButton' onClick={() => { deleteLastChar(); handleChange() }}>⌫</button>
-            <button id="deleteWord" className='deleteButton' onClick={() => { deleteLastWord(); handleChange() }}>⇐</button>
-            <button id="deleteText" className='deleteButton' onClick={() => { deleteAllText(); handleChange() }}>🗑️</button>
+            <button id="deleteChar" className='deleteButton' title="deleteChar" onClick={() => { deleteLastChar(); handleChange() }}>⌫</button>
+            <button id="deleteWord" className='deleteButton' title="deleteWord" onClick={() => { deleteLastWord(); handleChange() }}>⇐</button>
+            <button id="deleteText" className='deleteButton' title="deleteText" onClick={() => { deleteAllText(); handleChange() }}>🗑️</button>
         </>
     );
 };

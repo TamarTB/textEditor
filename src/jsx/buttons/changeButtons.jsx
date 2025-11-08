@@ -15,11 +15,12 @@ function ChangeButtons({ text, setText, historyChange }) {
     }
 
     return (
-        <>
+        <div className="buttons-row change-buttons-row">
             <input placeholder="from letter" value={fromLetter} onChange={(e) => setFromLetter(e.target.value)} />
             <input placeholder="to letter" value={ToLetter} onChange={(e) => setToLetter(e.target.value)} />
-            <button onClick={handleClick}>change</button>
-        </>
+            <button onClick={handleClick} title="change">change</button>
+        </div>
+
     )
 }
 export default ChangeButtons;

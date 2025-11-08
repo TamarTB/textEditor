@@ -1,40 +1,286 @@
-.keyboard-container {
+.keyboard-layout {
+  display: flex;
+  gap: 16px;
   width: 100%;
-  max-width: 100%;
+  margin: 10px auto;
+  padding: 12px;
   box-sizing: border-box;
-  margin: 12px 0;
   background-color: #fbfdff;
-  border: 1px solid #eef5fb;
+  border: 1px solid #e1e7ee;
   border-radius: 10px;
-  padding: 10px 12px;
-  box-shadow: 0 8px 24px rgba(2,6,23,0.04);
+  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.04);
+  transform: scale(0.9);
+  align-items: stretch; /* כל הקופסאות יהיו באותו גובה */
 }
 
-/* שורות מקשים - נפרסות לרוחב עם ריווח אחיד */
+/* קופסאות הצד והאמצע */
+.keyboard-box {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+/* צדדים */
+.left-box, .right-box {
+  flex: 1;           /* תופס מקום קטן יותר */
+  min-width: 220px;  /* תמיד מינימום גודל */
+  background-color: #f7f9fc;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* צבעים שונים לפי צד */
+.left-box { background-color: #f5faff; }
+.right-box { background-color: #fffaf5; }
+
+/* אמצע */
+.center-box {
+  flex: 2;          /* כפול מהצדדים */
+  min-width: 440px;
+  background-color: #ffffff;
+  border: 2px solid #d8e3f0;
+  border-radius: 15px;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* שורות כפתורים */
 .keyboard-row {
   display: flex;
-  justify-content: center;
+  gap: 5px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;       /* מוודא שכל הכפתורים ייראו */
+}
+
+.keyboard-row button,
+.keyboard-box button {
+  background-color: #eef3fa;
+  border: 1px solid #c7d3e0;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  flex: 0 0 auto;       /* מונע כיווץ כפתורים */
+}
+
+.keyboard-row button:hover,
+.keyboard-box button:hover {
+  background-color: #dce8f7;
+  transform: scale(1.05);
+}
+
+/* כפתור עם תיבת טקסט */
+.inline-input {
+  display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 8px;
-  flex-wrap: nowrap;
-  padding: 0 8px;
+  width: 100%;
 }
 
-/* אם המסך קטן - נתיר לייבא שורות */
-@media (max-width: 640px) {
-  .keyboard-row {
-    flex-wrap: wrap;
-    gap: 6px;
-  }
+.inline-input input {
+  flex: 1;
+  padding: 5px;
+  border-radius: 6px;
+  border: 1px solid #cbd7e3;
 }
 
-/* שורת השליטה בתחתית */
-.keyboard-controls {
+/* כפתורי קובץ למעלה */
+.file-buttons {
+  position: fixed;   /* תמיד קבועים על המסך */
+  top: 15px;
+  left: 20px;
   display: flex;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.file-buttons button {
+  background-color: #f0f4ff;
+  border: 1px solid #b7c7e2;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.file-buttons button:hover {
+  background-color: #d9e4ff;
+  transform: scale(1.05);
+}
+
+/* קופסה אמצעית – מעט יותר רחבה */
+.center-box {
+  flex: 2;              /* יחס לאמצע */
+  min-width: 480px;      /* הקטנו מעט או הגדלנו כדי שיכנסו */
+  background-color: #ffffff;
+  border: 2px solid #d8e3f0;
+  border-radius: 15px;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.keyboard-row {
+  display: flex;
+  gap: 3px;      /* הקטנו את הרווח בין הכפתורים */
+  margin-bottom: 6px;
+  flex-wrap: nowrap;  /* מונע ירידת שורה */
   justify-content: center;
+}
+
+.keyboard-row button,
+.keyboard-box button {
+  background-color: #eef3fa;
+  border: 1px solid #c7d3e0;
+  border-radius: 8px;
+   padding: 3px 6px;   /* קטן יותר */
+      /* הקטנו מעט את הכפתורים */
+  font-size: 13px;       /* קצת יותר קטן */
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  flex: 0 0 auto;       /* מונע כיווץ כפתורים */
+}
+
+.keyboard-row button:hover,
+.keyboard-box button:hover {
+  background-color: #dce8f7;
+  transform: scale(1.05);
+}
+.size-buttons-row {
+  margin-top: 8px;      
+  display: flex;
+  gap: 8px;             /* רווח בין הכפתורים */
+  justify-content: center; /* מרכז את הכפתורים */
+}
+.size-buttons-row button {
+  padding: 10px 16px;   /* יותר גדול */
+  font-size: 16px;       /* גופן גדול יותר */
+}
+
+.inline-control input {
+  flex: 1;
+  padding: 8px 12px;           /* יותר מרווח ונוח */
+  border-radius: 12px;         /* קצוות מעוגלות יותר */
+  border: 1px solid #a8bcd9;   /* צבע עדין יותר */
+  background-color: #f5f8ff;   /* צבע רקע נעים */
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.inline-control input:focus {
+  border-color: #6495ed;       /* מסגרת בולטת כשמסומן */
+  box-shadow: 0 0 5px rgba(100,149,237,0.3);
+}
+
+
+.buttons-row {
+  display: flex;
+  gap: 6px;                 /* רווח בין הכפתורים */
+  justify-content: center;   /* מרכז את הכפתורים */
+  margin-bottom: 6px;
+}
+
+.buttons-row button {
+  flex: 1 1 auto;           /* כל הכפתורים באותו גודל */
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #c7d3e0;
+  background-color: #eef3fa;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.buttons-row button:hover {
+  background-color: #dce8f7;
+  transform: scale(1.05);
+}
+
+/* תיבת החיפוש */
+.inline-control {
+  display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 10px;
-  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.inline-control input {
+  flex: 2;                 /* תופס יותר מקום מהכפתורים הסמוכים */
+  padding: 8px 12px;       /* מרווח פנימי נוח */
+  border-radius: 12px;     /* קצוות מעוגלות */
+  border: 1px solid #a8bcd9;
+  background-color: #f5f8ff;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.inline-control input:focus {
+  border-color: #6495ed;
+  box-shadow: 0 0 5px rgba(100,149,237,0.3);
+}
+
+
+.left-box .buttons-grid button {
+  flex: 1 1 auto;          /* כל הכפתורים באותו גודל */
+  padding: 4px 6px;        /* חצי מהגודל המקורי */
+  font-size: 12px;          /* קטן יותר */
+  border-radius: 8px;       /* פינות מעוגלות */
+  border: 1px solid #a8bcd9;
+  background-color: #f5f8ff; /* רקע עדין כמו תיבת הקלט */
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.left-box .buttons-grid button:hover {
+  background-color: #dce8f7;
+  transform: scale(1.05);
+}
+.change-buttons-row {
+  display: flex;
+  gap: 6px;                 /* רווח בין התיבות והכפתור */
+  justify-content: center;   /* מרכז את השורה */
+  align-items: center;       /* יישור אנכי */
+}
+.change-buttons-row input {
+  width: 50px;               /* חצי אורך מה שהיה קודם */
+  height: 32px;              /* גובה כמו הכפתורים */
+  padding: 0 6px;            /* קצת פנימי בתוך השורה */
+  font-size: 14px;           /* גודל כמו הכפתורים */
+  border-radius: 8px;
+  border: 1px solid #a8bcd9;
+  background-color: #f5f8ff;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.change-buttons-row input:focus {
+  border-color: #6495ed;
+  box-shadow: 0 0 5px rgba(100,149,237,0.3);
+}
+
+.change-buttons-row button {
+  height: 32px;              /* אותו גובה כמו התיבות */
+  padding: 0 8px;            /* רוחב מעט גדול */
+  font-size: 14px;           /* כמו הכפתורים */
+  border-radius: 8px;
+  border: 1px solid #a8bcd9;
+  background-color: #f5f8ff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.change-buttons-row button:hover {
+  background-color: #dce8f7;
+  transform: scale(1.05);
 }
