@@ -1,9 +1,9 @@
 import React,{useState} from 'react'
 import '../style/display.css'
 
-function Display({ text, style }) {
+function Display({ text, style, updateCurrentDisplay}) {
     return (
-        <textarea id='text1' style={style} value={text} readOnly />
+        <textarea className='displayArea' style={style} value={text} onClick={updateCurrentDisplay} readOnly />
     );
 };
 

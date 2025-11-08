@@ -52,3 +52,22 @@
   gap: 20px;              /* רווח בין התצוגה למקלדת */
   margin-top: 30px;
 }
+
+.display-container {
+  display: flex;
+  flex-wrap: wrap;       /* ירד לשורה חדשה אם אין מקום */
+  gap: 20px;             /* רווחים בין התצוגות */
+  justify-content: center; /* למרכז אופקית */
+  align-items: flex-start; /* מתחיל מהחלק העליון */
+  width: 100%;
+  margin-top: 20px;
+}
+
+.display-container > * {
+  flex: 0 1 250px;       /* כל Display יהיה בערך 250px רוחב */
+  min-height: 150px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  padding: 10px;
+  background: #fafafa;
+}
