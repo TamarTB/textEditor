@@ -1,12 +1,15 @@
-import React, { useState } from "react";
-import '../../style/buttons.css'
+import React from "react";
+import '../../style/buttons.css';
 
-function FontButtons({ style, setStyle, historyChange }) {
+function FontButtons({ style, setStyle, historyChange, currentDisplay }) {
     const current = style?.fontFamily || 'Arial';
     
     function handleChange(e) {
-        setStyle({ ...style, fontFamily: e.target.value });
-        historyChange()
+        if (!currentDisplay) return;
+        setStyle(prevStyles => prevStyles.map((s,i) => 
+            i === currentDisplay.id ? { ...s, fontFamily: e.target.value } : s
+        ));
+        historyChange();
     }
 
     return (
@@ -24,4 +27,4 @@ function FontButtons({ style, setStyle, historyChange }) {
     );
 }
 
-export default FontButtons
+export default FontButtons;

@@ -1,33 +1,38 @@
-import React, { useState } from "react";
-import '../../style/buttons.css'
+import React from "react";
+import '../../style/buttons.css';
 
-function DeleteButtons({ text, setText, handleChange }) {
+function DeleteButton({ text, setText, handleChange, currentDisplay }) {
 
-    const deleteLastChar = () => {
-        setText(text.slice(0, -1)); // מחזיר את כל הטקסט בלי התו האחרון
-    };
+  const deleteLastChar = () => {
+    if (!currentDisplay) return;
+    setText(prev => prev.map((t,i) => i===currentDisplay.id ? t.slice(0,-1) : t));
+    handleChange();
+  }
 
-    const deleteLastWord = () => {
-        text = text.trimEnd();
-        const lastSpaceIndex = text.lastIndexOf(' ');
-        if (lastSpaceIndex === -1) {
-            setText('');
-        }
-        else {
-            setText(text.slice(0, lastSpaceIndex));
-        }
-    };
+  const deleteLastWord = () => {
+    if (!currentDisplay) return;
+    setText(prev => prev.map((t,i) => {
+      if(i!==currentDisplay.id) return t;
+      const trimmed = t.trimEnd();
+      const lastSpace = trimmed.lastIndexOf(' ');
+      return lastSpace===-1 ? '' : trimmed.slice(0,lastSpace);
+    }));
+    handleChange();
+  }
 
-    const deleteAllText = () => {
-        setText('');
-    };
-    return (
-        <>
-            <button id="deleteChar" className='deleteButton' title="deleteChar" onClick={() => { deleteLastChar(); handleChange() }}>⌫</button>
-            <button id="deleteWord" className='deleteButton' title="deleteWord" onClick={() => { deleteLastWord(); handleChange() }}>⇐</button>
-            <button id="deleteText" className='deleteButton' title="deleteText" onClick={() => { deleteAllText(); handleChange() }}>🗑️</button>
-        </>
-    );
-};
+  const deleteAllText = () => {
+    if (!currentDisplay) return;
+    setText(prev => prev.map((t,i) => i===currentDisplay.id ? '' : t));
+    handleChange();
+  }
 
-export default DeleteButtons;
+  return (
+    <>
+      <button className='deleteButton' onClick={deleteLastChar}>⌫</button>
+      <button className='deleteButton' onClick={deleteLastWord}>⇐</button>
+      <button className='deleteButton' onClick={deleteAllText}>🗑️</button>
+    </>
+  )
+}
+
+export default DeleteButton;

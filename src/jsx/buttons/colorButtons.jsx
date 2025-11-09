@@ -1,12 +1,15 @@
-import React, { useState } from "react";
-import '../../style/buttons.css'
+import React from "react";
+import '../../style/buttons.css';
 
-function ColorButtons({ style, setStyle, historyChange }) {
+function ColorButtons({ style, setStyle, historyChange, currentDisplay }) {
     const current = style?.color || 'black';
 
     function handleChange(e) {
-        setStyle({ ...style, color: e.target.value });
-        historyChange()
+        if (!currentDisplay) return;
+        setStyle(prevStyles => prevStyles.map((s,i) => 
+            i === currentDisplay.id ? { ...s, color: e.target.value } : s
+        ));
+        historyChange();
     }
 
     return (
@@ -22,7 +25,6 @@ function ColorButtons({ style, setStyle, historyChange }) {
             </select>
         </div>
     );
-
 }
 
-export default ColorButtons
+export default ColorButtons;

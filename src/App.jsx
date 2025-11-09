@@ -5,25 +5,25 @@ import Editor from './jsx/editor'
 import FilesButtons from './jsx/filesButtons'
 
 function App() {
-  const [text, setText] = useState('');
-  const [style, setStyle] = useState({
-    fontSize: 16,
-    fontFamily: "Arial",
-    color: "#000",
-    direction: "ltr"
-  });
+  const [texts, setTexts] = useState([]);
+  const [styles, setStyles] = useState([]);
 
-  const [displays, setDisplays] = useState([]); // 🔹 זה במקום let displays = []
-  const [displayCounter, setDisplayCounter] = useState(1);
-  const [currentDisplay, setCurrentDisplay]=useState();
+  const [displays, setDisplays] = useState([]); 
+  const [displayCounter, setDisplayCounter] = useState(0);
+  const [currentDisplay, setCurrentDisplay] = useState();
 
   function pushNewDisplay() {
-    const newDisplay = { 
-      id: 'display' + displayCounter, 
-      text: text, 
-      style: style 
+    setTexts(prev => [...prev, '']);
+    setStyles(prev => [...prev, {
+      fontSize: 16,
+      fontFamily: "Arial",
+      color: "#000",
+      direction: "ltr"
+    }]);
+    const newDisplay = {
+      id: displayCounter
     };
-    setDisplays(prev => [...prev, newDisplay]); // 🔹 מעדכן את ה־state
+    setDisplays(prev => [...prev, newDisplay]);
     setDisplayCounter(prev => prev + 1);
     setCurrentDisplay(newDisplay);
   }
@@ -34,12 +34,30 @@ function App() {
 
       <div className="display-container">
         {displays.map((i) => (
-          <Display key={i.id} text={i.text} style={i.style} id={i.id} />
+          <Display
+            key={i.id}
+            text={texts[i.id] || ''}   
+            style={styles[i.id] || { fontSize: 16, fontFamily: "Arial", color: "#000", direction: "ltr" }}
+            setCurrentDisplay={() => setCurrentDisplay(i)}
+          />
         ))}
       </div>
 
-      <Editor text={text} setText={setText} style={style} setStyle={setStyle} />
-      <FilesButtons text={text} setText={setText} style={style} setStyle={setStyle} />
+
+      <Editor
+        text={texts[currentDisplay?.id] || ''}
+        setText={setTexts}
+        style={styles[currentDisplay?.id] || { fontSize: 16, fontFamily: "Arial", color: "#000", direction: "ltr" }}
+        setStyle={setStyles}
+        currentDisplay={currentDisplay}
+      />
+      <FilesButtons
+        text={texts[currentDisplay?.id] || ''}
+        setText={setTexts}
+        style={styles[currentDisplay?.id] || { fontSize: 16, fontFamily: "Arial", color: "#000", direction: "ltr" }}
+        setStyle={setStyles}
+        currentDisplay={currentDisplay}
+      />
     </div>
   )
 }
