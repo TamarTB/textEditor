@@ -1,22 +1,70 @@
 import React from "react";
 import '../../style/buttons.css';
 
-function SizeButtons({ style = {}, setStyle, historyChange, currentDisplay }) {
-    const current = parseInt(style?.fontSize || '12');
+function SizeButtons({ currentStyle, setCurrentStyle, setStyle, historyChange, currentDisplay, mode,  setText={setTexts}            // ← הוסיפי את זה
+ }) {
+    const current = parseInt(currentStyle?.fontSize || '16');
 
     function increase() {
         if (!currentDisplay) return;
-        setStyle(prevStyles => prevStyles.map((s,i) => 
-            i === currentDisplay.id ? { ...s, fontSize: (current + 1) + 'px' } : s
-        ));
+
+        if (mode === "everything") {
+            // משנה את הסטייל של כל הטקסט שהוקלד עד עכשיו
+            setStyle(prev =>
+                prev.map((s, i) =>
+                    i === currentDisplay.id ? { ...s, fontSize: (current + 1) + 'px' } : s
+                )
+            );
+            setText(prev =>
+                prev.map((t, i) =>
+                    i === currentDisplay.id
+                        ? t.map(charObj => ({ ...charObj, style: { ...charObj.style, fontSize: (current + 1) + 'px' } }))
+                        : t
+                )
+            );
+             setCurrentStyle(prev => ({
+                ...prev,
+                fontSize: (current + 1) + 'px'
+            }));
+
+        }
+        if (mode === "from-now") {
+            setCurrentStyle(prev => ({
+                ...prev,
+                fontSize: (current + 1) + 'px'
+            }));
+        }
         historyChange();
     }
 
     function decrease() {
         if (!currentDisplay) return;
-        setStyle(prevStyles => prevStyles.map((s,i) => 
-            i === currentDisplay.id ? { ...s, fontSize: (current - 1) + 'px' } : s
-        ));
+
+        if (mode === "everything") {
+            // משנה את הסטייל של כל הטקסט שהוקלד עד עכשיו
+            setStyle(prev =>
+                prev.map((s, i) =>
+                    i === currentDisplay.id ? { ...s, fontSize: (current - 1) + 'px' } : s
+                )
+            );
+            setText(prev =>
+                prev.map((t, i) =>
+                    i === currentDisplay.id
+                        ? t.map(charObj => ({ ...charObj, style: { ...charObj.style, fontSize: (current - 1) + 'px' } }))
+                        : t
+                )
+            );
+              setCurrentStyle(prev => ({
+                ...prev,
+                fontSize: (current - 1) + 'px'
+            }));
+        }
+        if (mode === "from-now") {
+            setCurrentStyle(prev => ({
+                ...prev,
+                fontSize: (current - 1) + 'px'
+            }));
+        }
         historyChange();
     }
 

@@ -5,14 +5,14 @@ function SearchButtons({ text }) {
     const [letter, setLetter] = useState('');
 
     function handleClick() {
-        if (text.includes(letter)) {
+        if (text.some(charObj => charObj.char === letter)) {
             alert(`התו '${letter}' קיים בטקסט!`);
         } else {
             alert(`התו '${letter}' לא נמצא בטקסט`);
         }
         setLetter('');
-
     }
+
 
     return (
         <>

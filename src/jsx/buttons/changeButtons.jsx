@@ -7,8 +7,13 @@ function ChangeButtons({ text, setText, historyChange, currentDisplay }) {
 
     function handleClick() {
         if (!currentDisplay) return;
-        setText(prev => prev.map((t, i) => 
-            i === currentDisplay.id ? t.replaceAll(fromLetter, toLetter) : t
+        setText(prev => prev.map((t, i) =>
+            i === currentDisplay.id
+                ? t.map(charObj => ({
+                    ...charObj,
+                    char: charObj.char === fromLetter ? toLetter : charObj.char
+                }))
+                : t
         ));
         historyChange();
         setFromLetter('');

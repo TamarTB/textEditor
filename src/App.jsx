@@ -7,21 +7,25 @@ import FilesButtons from './jsx/filesButtons'
 function App() {
   const [texts, setTexts] = useState([]);
   const [styles, setStyles] = useState([]);
-
-  const [displays, setDisplays] = useState([]); 
+  const [displays, setDisplays] = useState([]);
   const [displayCounter, setDisplayCounter] = useState(0);
   const [currentDisplay, setCurrentDisplay] = useState();
-
+  const [currentStyle, setCurrentStyle] = useState({
+    color: "#000",
+    size: 16
+  });
   function pushNewDisplay() {
-    setTexts(prev => [...prev, '']);
+    setTexts(prev => [...prev, []]);
     setStyles(prev => [...prev, {
       fontSize: 16,
       fontFamily: "Arial",
       color: "#000",
       direction: "ltr"
     }]);
+
     const newDisplay = {
-      id: displayCounter
+      id: displayCounter,
+ 
     };
     setDisplays(prev => [...prev, newDisplay]);
     setDisplayCounter(prev => prev + 1);
@@ -36,7 +40,7 @@ function App() {
         {displays.map((i) => (
           <Display
             key={i.id}
-            text={texts[i.id] || ''}   
+            text={texts[i.id] || ''}
             style={styles[i.id] || { fontSize: 16, fontFamily: "Arial", color: "#000", direction: "ltr" }}
             setCurrentDisplay={() => setCurrentDisplay(i)}
           />
@@ -50,13 +54,21 @@ function App() {
         style={styles[currentDisplay?.id] || { fontSize: 16, fontFamily: "Arial", color: "#000", direction: "ltr" }}
         setStyle={setStyles}
         currentDisplay={currentDisplay}
+        currentStyle={currentStyle}        // ← שולחים לכאן
+        setCurrentStyle={setCurrentStyle}  // ← שולחים גם את הפונקציה
       />
+
       <FilesButtons
         text={texts[currentDisplay?.id] || ''}
         setText={setTexts}
         style={styles[currentDisplay?.id] || { fontSize: 16, fontFamily: "Arial", color: "#000", direction: "ltr" }}
         setStyle={setStyles}
         currentDisplay={currentDisplay}
+        setDisplays={setDisplays}
+        displays={displays}
+        displayCounter={displayCounter}
+        setDisplayCounter={setDisplayCounter}
+        setCurrentDisplay={setCurrentDisplay}
       />
     </div>
   )

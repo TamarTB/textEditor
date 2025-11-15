@@ -1,14 +1,40 @@
 import React from "react";
 import '../../style/buttons.css';
 
-function ColorButtons({ style, setStyle, historyChange, currentDisplay }) {
-    const current = style?.color || 'black';
+function ColorButtons({ currentStyle, setCurrentStyle, setStyle, historyChange, currentDisplay, mode,  setText={setTexts}            // ← הוסיפי את זה
+ }) {
+    const current = currentStyle?.color || 'black';
 
     function handleChange(e) {
         if (!currentDisplay) return;
-        setStyle(prevStyles => prevStyles.map((s,i) => 
-            i === currentDisplay.id ? { ...s, color: e.target.value } : s
-        ));
+
+        const chosenColor = e.target.value;
+
+        if (mode === "everything") {
+            setStyle(prev =>
+                prev.map((s, i) =>
+                    i === currentDisplay.id ? { ...s, color: chosenColor } : s
+                )
+            );
+
+            setText(prev =>
+                prev.map((t, i) =>
+                    i === currentDisplay.id
+                        ? t.map(charObj => ({ ...charObj, style: { ...charObj.style, color: chosenColor } }))
+                        : t
+                )
+            );
+            setCurrentStyle(prev => ({
+                ...prev,
+                color: chosenColor
+            }));
+        }
+        if (mode === "from-now") {
+            setCurrentStyle(prev => ({
+                ...prev,
+                color: chosenColor
+            }));
+        }
         historyChange();
     }
 

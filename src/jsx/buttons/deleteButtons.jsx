@@ -5,26 +5,36 @@ function DeleteButton({ text, setText, handleChange, currentDisplay }) {
 
   const deleteLastChar = () => {
     if (!currentDisplay) return;
-    setText(prev => prev.map((t,i) => i===currentDisplay.id ? t.slice(0,-1) : t));
+    setText(prev => prev.map((t, i) => i === currentDisplay.id ? t.slice(0, -1) : t));
     handleChange();
   }
 
   const deleteLastWord = () => {
     if (!currentDisplay) return;
-    setText(prev => prev.map((t,i) => {
-      if(i!==currentDisplay.id) return t;
-      const trimmed = t.trimEnd();
-      const lastSpace = trimmed.lastIndexOf(' ');
-      return lastSpace===-1 ? '' : trimmed.slice(0,lastSpace);
-    }));
+    setText(prev => prev.map((t, i) => {
+      if (i !== currentDisplay.id) return t;
+      const chars = t; // זה מערך
+      let lastSpaceIndex = -1;
+      for (let j = chars.length - 1; j >= 0; j--) {
+        if (chars[j].char === ' ') {
+          lastSpaceIndex = j;
+          break;
+        }
+      }
+      return lastSpaceIndex === -1 ? [] : chars.slice(0, lastSpaceIndex);
+
+    }
+    ));
     handleChange();
-  }
+  };
+
 
   const deleteAllText = () => {
     if (!currentDisplay) return;
-    setText(prev => prev.map((t,i) => i===currentDisplay.id ? '' : t));
+    setText(prev => prev.map((t, i) => i === currentDisplay.id ? [] : t));
     handleChange();
-  }
+  };
+
 
   return (
     <>

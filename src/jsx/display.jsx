@@ -3,14 +3,15 @@ import '../style/display.css'
 
 function Display({ text, style, setCurrentDisplay }) {
     return (
-        <textarea
-            className='displayArea'
-            style={style}
-            value={text}
-            onClick={setCurrentDisplay}
-            readOnly
-        />
+        <div className="display" onClick={setCurrentDisplay}>
+            {text.map((t, i) => (
+                <span key={i} style={t.style}>
+                    {t.char}
+                </span>
+            ))}
+        </div>
     );
+
 };
 
 export default Display;

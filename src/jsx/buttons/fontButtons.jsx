@@ -1,17 +1,42 @@
 import React from "react";
 import '../../style/buttons.css';
 
-function FontButtons({ style, setStyle, historyChange, currentDisplay }) {
-    const current = style?.fontFamily || 'Arial';
-    
+function FontButtons({ setStyle, historyChange, currentDisplay, mode, currentStyle, setCurrentStyle,  setText={setTexts}            // ← הוסיפי את זה
+ }) {
+    const current = currentStyle?.fontFamily || 'Arial';
+
     function handleChange(e) {
         if (!currentDisplay) return;
-        setStyle(prevStyles => prevStyles.map((s,i) => 
-            i === currentDisplay.id ? { ...s, fontFamily: e.target.value } : s
-        ));
+
+        const chosenFont = e.target.value;
+
+        if (mode === "everything") {
+            // משנה את הסטייל של כל הטקסט שהוקלד עד עכשיו
+            setStyle(prev =>
+                prev.map((s, i) =>
+                    i === currentDisplay.id ? { ...s, fontFamily: chosenFont } : s
+                )
+            );
+            setText(prev =>
+                prev.map((t, i) =>
+                    i === currentDisplay.id
+                        ? t.map(charObj => ({ ...charObj, style: { ...charObj.style, fontFamily: chosenFont } }))
+                        : t
+                )
+            );
+            setCurrentStyle(prev => ({
+                ...prev,
+                fontFamily: chosenFont
+            }));
+        }
+        if (mode === "from-now") {
+            setCurrentStyle(prev => ({
+                ...prev,
+                fontFamily: chosenFont
+            }));
+        }
         historyChange();
     }
-
     return (
         <div className="font-selector" aria-label="font selector">
             <label htmlFor="fonts">Font</label>
