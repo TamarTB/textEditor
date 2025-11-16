@@ -1,19 +1,30 @@
 import React from "react";
 
-function Save({ text, style }) {
+function Save({ text, style, currentDisplay ,isLoggedIn}) {
     function handleClick() {
-        // קוראים את שם הקובץ הנוכחי
-        const currentFile = localStorage.getItem("currentFile");
+        if (isLoggedIn) {
+            if (!currentDisplay) {
+                alert("No display selected!");
+                return;
+            }
+            if (!currentDisplay.fileName) {
+                alert("Please use 'Save As' first to create a file");
+                return;
+            }
+            const updatedDisplay = {
+                ...currentDisplay,
+                text,
+                style
+            };
 
-        if (currentFile) {
-            // שומרים את הטקסט והסטייל בעזרת שם הקובץ
-            localStorage.setItem(currentFile, JSON.stringify({ text, style }));
-        } else {
-            alert("No current file selected!");
+            localStorage.setItem(currentDisplay.fileName, JSON.stringify(updatedDisplay));
+        }
+        else{
+            alert("Log in first");
         }
     }
 
-    return <button onClick={handleClick}>save</button>;
+    return <button onClick={handleClick}>Save</button>;
 }
 
 export default Save;

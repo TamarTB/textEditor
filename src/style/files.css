@@ -1,38 +1,75 @@
 .files {
-  position: absolute;
-  top: 14px;
-  left: 14px;
+  position: fixed;
+  top: 12px;
+  left: 12px;
   display: flex;
   gap: 12px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.0); /* ללא גבול לבן חיצוני */
+  border-radius: 12px;
+  z-index: 9999;
 }
 
 .files button {
-  background: linear-gradient(135deg, #e6f0ff, #f8fbff);
-  border: 1px solid #c9d9ee;
+  background: #4a90e2;
+  color: white;
+  border: none;
   border-radius: 10px;
-  padding: 8px 14px;
-  font-size: 14px;
-  color: #1e293b;
+  padding: 10px 18px;
+  font-size: 16px;
   font-weight: 500;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   cursor: pointer;
   transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
 .files button:hover {
-  background: #e2ecfa;
+  background: #3573c4;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
 }
 
 .files button:active {
   transform: translateY(0);
 }
 
-/* אייקון בכפתור */
-.files button span {
+.files select {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #c8d6ea;
   font-size: 16px;
+  color: #1e2a40;
+  margin-left: 6px; /* רווח בין כפתור OPEN ל-select */
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.files select:hover {
+  background: #eaf0fc;
+}
+
+.files .save-as-wrapper {
+  position: relative; /* מאפשר ל־input להיות מוחלט יחסית לכפתור */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* input מתחת לכפתור אך מוחלט כדי שלא ישפיע על הגודל של הסרגל */
+.files input.save-as-input {
+  position: absolute;
+  top: 100%; /* מתחת לכפתור */
+  left: 0;
+  margin-top: 6px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid #c8d6ea;
+  font-size: 16px;
+  width: 160px;
+  outline: none;
+  z-index: 100;
+  display: block;
+}
+
+.files input.save-as-input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74,144,226,0.5);
 }

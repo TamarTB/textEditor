@@ -1,35 +1,61 @@
 import React, { useState } from "react";
 
-function SaveAs({ text, style, fileName, setFileName, setFileList }) {
+function SaveAs({ text, style, fileName, setFileName, setFileList, updateDisplayFileName, currentDisplay,isLoggedIn,userName }) {
     const [isVisible, setIsVisible] = useState(false);
 
     const handleClick = () => {
-        if (!fileName) return alert("Enter a file name!");
+        if (isLoggedIn) {
+            if (!fileName) return alert("Enter a file name!");
 
-        localStorage.setItem(fileName, JSON.stringify({ text, style }));
-        localStorage.setItem("currentFile", fileName);
+            if (localStorage.getItem(fileName)) {
+                alert("File name already exists! Please choose a different name.");
+                return;
+            }
 
-        // מעדכנים את fileList שמשותף ל־Open
-        setFileList(prev => {
-            if (!prev.includes(fileName)) return [...prev, fileName];
-            return prev;
-        });
+            const newDisplay = {
+                ...currentDisplay,
+                text,
+                style,
+                fileName,
+                userName
+            };
 
-        setFileName("");
-        setIsVisible(false);
+            localStorage.setItem(fileName, JSON.stringify(newDisplay));
+            updateDisplayFileName(currentDisplay.id, fileName);
+
+            // מעדכנים את fileList שמשותף ל־Open
+            setFileList(prev => {
+                if (!prev.includes(fileName)) return [...prev, fileName];
+                return prev;
+            });
+
+            setFileName("");
+            setIsVisible(false);
+        }
+
+    }
+
+    function checkLogged(){
+        if(!isLoggedIn)
+            alert("Log in first");
+        else
+            setIsVisible(true);
     }
 
     return (
-        <>
-            <input
-                placeholder="Enter file name"
-                value={fileName}
-                onChange={(e) => setFileName(e.target.value)}
-                style={{ visibility: isVisible ? 'visible' : 'hidden' }}
-                onKeyDown={(e) => { if (e.key === "Enter") handleClick(); }}
-            />
-            <button onClick={() => setIsVisible(true)}>Save As</button>
-        </>
+        <div className="save-as-wrapper">
+            <button onClick={checkLogged}>Save As</button>
+
+            {isVisible && (
+                <input
+                    className="save-as-input"
+                    placeholder="Enter file name"
+                    value={fileName}
+                    onChange={(e) => setFileName(e.target.value)}
+                    onKeyDown={(e) => { if (e.key === "Enter") handleClick(); }}
+                />
+            )}
+        </div>
     );
 }
 

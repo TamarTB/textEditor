@@ -1,14 +1,35 @@
-/* {
-  width: 90%;
-  max-width: 600px;
-  min-height: 150px;
-  resize: none;
-  font-size: 16px;
-  font-family: Arial, sans-serif;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-} */
+.delet-display {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 4px;
+
+    font-size: 12px;
+    padding: 2px 6px;
+
+    cursor: pointer;
+}
+
+.delet-display:hover {
+    background-color: darkred;
+}
+
+.display {
+    position: relative;
+    padding-top: 25px;
+    border: 2px solid transparent;
+    transition: border 0.2s ease;
+}
+
+/* כשהדיספליי נבחר */
+.active-display {
+    border: 2px solid #4A90E2; /* כחול יפה */
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.6);
+}
+
 
     
