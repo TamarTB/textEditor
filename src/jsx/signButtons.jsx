@@ -28,7 +28,7 @@ function SignButtons({ isLoggedIn, setIsLoggedIn, username, setUsername, passwor
             return alert("Username already exists. Please choose a different name.");
         }
 
-        // שמירה של המשתמש ב-LS ללא רשימת קבצים
+        //שמירת המשתמש ברשימת המשתמשים
         users[username] = { password };
 
         localStorage.setItem("users", JSON.stringify(users));

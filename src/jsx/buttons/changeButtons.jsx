@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import '../../style/buttons.css';
 
-function ChangeButtons({ text, setText, historyChange, currentDisplay }) {
-    const [fromLetter, setFromLetter] = useState('');
-    const [toLetter, setToLetter] = useState('');
+//החלפת אות
+function ChangeButtons({setText, historyChange, currentDisplay }) {
+    const [fromLetter, setFromLetter] = useState('');//איזו אות להחליף
+    const [toLetter, setToLetter] = useState('');//לאיזו אות להחליף
 
     function handleClick() {
         if (!currentDisplay) return;

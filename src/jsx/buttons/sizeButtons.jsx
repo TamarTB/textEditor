@@ -1,14 +1,14 @@
 import React from "react";
 import '../../style/buttons.css';
 
-function SizeButtons({ currentStyle, setCurrentStyle, setStyle, historyChange, currentDisplay, mode,  setText={setTexts}            // ← הוסיפי את זה
- }) {
+function SizeButtons({ currentStyle, setCurrentStyle, setStyle, historyChange, currentDisplay, mode,  setText={setTexts} }) {
     const current = parseInt(currentStyle?.fontSize || '16');
 
     function increase() {
         if (!currentDisplay) return;
 
         if (mode === "everything") {
+
             // משנה את הסטייל של כל הטקסט שהוקלד עד עכשיו
             setStyle(prev =>
                 prev.map((s, i) =>
@@ -28,6 +28,7 @@ function SizeButtons({ currentStyle, setCurrentStyle, setStyle, historyChange, c
             }));
 
         }
+
         if (mode === "from-now") {
             setCurrentStyle(prev => ({
                 ...prev,
@@ -41,6 +42,7 @@ function SizeButtons({ currentStyle, setCurrentStyle, setStyle, historyChange, c
         if (!currentDisplay) return;
 
         if (mode === "everything") {
+
             // משנה את הסטייל של כל הטקסט שהוקלד עד עכשיו
             setStyle(prev =>
                 prev.map((s, i) =>
@@ -59,6 +61,7 @@ function SizeButtons({ currentStyle, setCurrentStyle, setStyle, historyChange, c
                 fontSize: (current - 1) + 'px'
             }));
         }
+        
         if (mode === "from-now") {
             setCurrentStyle(prev => ({
                 ...prev,

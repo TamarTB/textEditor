@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import '../../style/buttons.css'
 
+//חיפוש אות
 function SearchButtons({ text }) {
-    const [letter, setLetter] = useState('');
+    const [letter, setLetter] = useState('');//תו לחיפוש
 
     function handleClick() {
         if (text.some(charObj => charObj.char === letter)) {

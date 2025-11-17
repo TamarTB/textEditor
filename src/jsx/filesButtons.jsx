@@ -7,6 +7,7 @@ import Open from './files/open';
 
 function FilesButtons({ text, style, setText, setStyle, displays, setDisplays, displayCounter, setDisplayCounter, setCurrentDisplay, updateDisplayFileName, currentDisplay, isLoggedIn, userName, fileList, setFileList, fileName, setFileName }) {
 
+    //בכל פעם ששם המשתמש משתנה טוען מחדש את רשימת הקבצים מהלוקאל סטורייג
     useEffect(() => {
         if (!userName) return; // אם אף משתמש לא מחובר, לא נטען כלום
 
@@ -54,13 +55,9 @@ function FilesButtons({ text, style, setText, setStyle, displays, setDisplays, d
                 isLoggedIn={isLoggedIn}
             />
             <Open
-                texts={text}
                 setText={setText}
-                styles={style}
                 setStyle={setStyle}
-                fileList={fileList}  // ← משתמשים ב-fileList משותף
-                setFileList={setFileList} // ← כדי לעדכן
-                displays={displays}
+                fileList={fileList} 
                 setDisplays={setDisplays}
                 displayCounter={displayCounter}
                 setDisplayCounter={setDisplayCounter}

@@ -6,22 +6,23 @@ import FilesButtons from './jsx/filesButtons'
 import SignButtons from './jsx/signButtons'
 
 function App() {
-  const [texts, setTexts] = useState([]);
-  const [styles, setStyles] = useState([]);
+  const [texts, setTexts] = useState([]);//מערך של טקסטים בשביל שלכל דיספליי יהיה טקסט
+  const [styles, setStyles] = useState([]);//מערך של סטיילים בשביל שלכל דיספליי יהיה סטייל
   const [currentStyle, setCurrentStyle] = useState({
     color: "#000",
     size: 16
-  });
-  const [displays, setDisplays] = useState([]);
-  const [displayCounter, setDisplayCounter] = useState(0);
-  const [currentDisplay, setCurrentDisplay] = useState();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [fileName, setFileName] = useState('');
-  const [fileList, setFileList] = useState([]);
+  });//שמירת הסטייל הנוכחי בשביל כפתור עיצוב
+  const [displays, setDisplays] = useState([]);//מערך של דיספליי
+  const [displayCounter, setDisplayCounter] = useState(0);//בשביל מזהה לכל דיספליי
+  const [currentDisplay, setCurrentDisplay] = useState();//הדיספליי הנוכחי
+  const [isLoggedIn, setIsLoggedIn] = useState(false);//האם המשתמש מחובר
+  const [currentUser, setCurrentUser] = useState('');//משתמש נוכחי
+  const [username, setUsername] = useState('');//שם משתמש
+  const [password, setPassword] = useState('');//סיסמת משתמש
+  const [fileName, setFileName] = useState('');//שם קובץ
+  const [fileList, setFileList] = useState([]);//רשימת שמות קבצים
 
+  //יצירת דיספליי חדש
   function pushNewDisplay() {
     setTexts(prev => [...prev, []]);
     setStyles(prev => [...prev, {
@@ -39,14 +40,15 @@ function App() {
     setDisplays(prev => [...prev, newDisplay]);
     setDisplayCounter(prev => prev + 1);
     setCurrentDisplay(newDisplay);
-    // localStorage.setItem("currentDisplay", JSON.stringify(newDisplay));
   }
 
+  //מחיקת דיספליי מהתצוגה
   function deleteDisplay(id) {
     setDisplays(prev => prev.filter(d => d.id !== id));
     if (currentDisplay?.id === id) setCurrentDisplay(undefined);
   }
 
+  //עדכון שם הקובץ של דיספליי פתוח לאחר השמירה בשם
   function updateDisplayFileName(displayId, fileName) {
     setDisplays(prev => prev.map(d => {
       if (d.id === displayId) return { ...d, fileName };
@@ -69,7 +71,7 @@ function App() {
             style={styles[d.id] || { fontSize: 16, fontFamily: "Arial", color: "#000", direction: "ltr" }}
             setCurrentDisplay={() => setCurrentDisplay(d)}
             deleteDisplay={() => deleteDisplay(d.id)}
-            active={currentDisplay?.id === d.id}
+            active={currentDisplay?.id === d.id}//בשביל מסגרת עבור דיספליי נוכחי
             fileName={d.fileName}
             userName={currentUser}
           />
@@ -83,8 +85,8 @@ function App() {
         style={styles[currentDisplay?.id] || { fontSize: 16, fontFamily: "Arial", color: "#000", direction: "ltr" }}
         setStyle={setStyles}
         currentDisplay={currentDisplay}
-        currentStyle={currentStyle}        // ← שולחים לכאן
-        setCurrentStyle={setCurrentStyle}  // ← שולחים גם את הפונקציה
+        currentStyle={currentStyle}      
+        setCurrentStyle={setCurrentStyle}
       />
 
       <FilesButtons
@@ -93,11 +95,11 @@ function App() {
         style={styles[currentDisplay?.id] || { fontSize: 16, fontFamily: "Arial", color: "#000", direction: "ltr" }}
         setStyle={setStyles}
         currentDisplay={currentDisplay}
-        setDisplays={setDisplays}
+        setCurrentDisplay={setCurrentDisplay}
         displays={displays}
+        setDisplays={setDisplays}
         displayCounter={displayCounter}
         setDisplayCounter={setDisplayCounter}
-        setCurrentDisplay={setCurrentDisplay}
         updateDisplayFileName={updateDisplayFileName}
         isLoggedIn={isLoggedIn}
         userName={currentUser}
@@ -120,7 +122,6 @@ function App() {
         setCurrentDisplay={setCurrentDisplay}
         setFileList={setFileList}
       />
-
     </div>
   )
 }

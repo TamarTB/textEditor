@@ -6,7 +6,7 @@ function TextButtons({ value, setText, currentDisplay, handleChange,currentStyle
         <button
             className='textButton'
             onClick={() => {
-                if (!currentDisplay) return; // אם אין display נבחר, לא לעשות כלום
+                if (!currentDisplay) return;
                 setText(prev => prev.map((t, i) =>
                      i === currentDisplay.id
                         ? [...t, { char: value, style: currentStyle }]
@@ -19,6 +19,5 @@ function TextButtons({ value, setText, currentDisplay, handleChange,currentStyle
         </button>
     )
 }
-
 
 export default TextButtons

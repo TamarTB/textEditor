@@ -1,14 +1,21 @@
 import React, { useState } from "react";
 
-function SaveAs({ text, style, fileName, setFileName, setFileList, updateDisplayFileName, currentDisplay,isLoggedIn,userName }) {
+function SaveAs({ text, style, fileName, setFileName, setFileList, updateDisplayFileName, currentDisplay, isLoggedIn, userName }) {
     const [isVisible, setIsVisible] = useState(false);
 
     const handleClick = () => {
         if (isLoggedIn) {
             if (!fileName) return alert("Enter a file name!");
 
+            if (currentDisplay.fileName) {
+                setFileName("");
+                setIsVisible(false);
+                return alert("This file has been saved already, go to save.");
+            }
+
             if (localStorage.getItem(fileName)) {
                 alert("File name already exists! Please choose a different name.");
+                setFileName("");
                 return;
             }
 
@@ -23,7 +30,7 @@ function SaveAs({ text, style, fileName, setFileName, setFileList, updateDisplay
             localStorage.setItem(fileName, JSON.stringify(newDisplay));
             updateDisplayFileName(currentDisplay.id, fileName);
 
-            // מעדכנים את fileList שמשותף ל־Open
+            //מעדכנים את רשימת הקבצים של המשתמש הנוכחי
             setFileList(prev => {
                 if (!prev.includes(fileName)) return [...prev, fileName];
                 return prev;
@@ -35,8 +42,8 @@ function SaveAs({ text, style, fileName, setFileName, setFileList, updateDisplay
 
     }
 
-    function checkLogged(){
-        if(!isLoggedIn)
+    function checkLogged() {
+        if (!isLoggedIn)
             alert("Log in first");
         else
             setIsVisible(true);

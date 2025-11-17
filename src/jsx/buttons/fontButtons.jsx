@@ -1,16 +1,17 @@
 import React from "react";
 import '../../style/buttons.css';
 
-function FontButtons({ setStyle, historyChange, currentDisplay, mode, currentStyle, setCurrentStyle,  setText={setTexts}            // ← הוסיפי את זה
- }) {
+//שינוי פונט הטקסט
+function FontButtons({setStyle, historyChange, currentDisplay, mode, currentStyle, setCurrentStyle,  setText={setTexts}}) {
     const current = currentStyle?.fontFamily || 'Arial';
 
-    function handleChange(e) {
+    function handleOnChange(e) {
         if (!currentDisplay) return;
 
         const chosenFont = e.target.value;
 
         if (mode === "everything") {
+
             // משנה את הסטייל של כל הטקסט שהוקלד עד עכשיו
             setStyle(prev =>
                 prev.map((s, i) =>
@@ -29,6 +30,7 @@ function FontButtons({ setStyle, historyChange, currentDisplay, mode, currentSty
                 fontFamily: chosenFont
             }));
         }
+        
         if (mode === "from-now") {
             setCurrentStyle(prev => ({
                 ...prev,
@@ -40,7 +42,7 @@ function FontButtons({ setStyle, historyChange, currentDisplay, mode, currentSty
     return (
         <div className="font-selector" aria-label="font selector">
             <label htmlFor="fonts">Font</label>
-            <select id="fonts" name="fonts" value={current} onChange={handleChange}>
+            <select id="fonts" name="fonts" value={current} onChange={handleOnChange}>
                 <option value="Times New Roman" style={{ fontFamily: "Times New Roman" }}>Times New Roman</option>
                 <option value="Arial" style={{ fontFamily: "Arial" }}>Arial</option>
                 <option value="Courier New" style={{ fontFamily: "Courier New" }}>Courier New</option>

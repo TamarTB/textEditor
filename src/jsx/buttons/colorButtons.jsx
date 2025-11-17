@@ -1,14 +1,13 @@
 import React from "react";
 import '../../style/buttons.css';
 
-function ColorButtons({ currentStyle, setCurrentStyle, setStyle, historyChange, currentDisplay, mode,  setText={setTexts}            // ← הוסיפי את זה
- }) {
-    const current = currentStyle?.color || 'black';
+function ColorButtons({ currentStyle, setCurrentStyle, setStyle, historyChange, currentDisplay, mode,  setText={setTexts} }) {
+    const current = currentStyle?.color || 'black';//צבע נוכחי
 
     function handleChange(e) {
         if (!currentDisplay) return;
 
-        const chosenColor = e.target.value;
+        const chosenColor = e.target.value;//הצבע שנבחר מרשימת הצבעים
 
         if (mode === "everything") {
             setStyle(prev =>

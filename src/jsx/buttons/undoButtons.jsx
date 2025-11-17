@@ -1,10 +1,11 @@
 import React from "react";
 import '../../style/buttons.css';
 
-function UndoButton({ history, setHistory, setText, setStyle, currentDisplay }) {
+function UndoButton({setHistory, setText, setStyle, currentDisplay }) {
   const handleUndo = () => {
     if (!currentDisplay) return;
     setHistory(prev => {
+      //נחפש את המצב האחרון שהיה בדיספליי הנוכחי
       const index = [...prev].reverse().findIndex(h => h.id === currentDisplay.id);
       if (index === -1) return prev;
       const last = [...prev].reverse()[index];

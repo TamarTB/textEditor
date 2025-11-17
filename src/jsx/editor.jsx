@@ -35,13 +35,14 @@ function Editor({ text, setText, style, setStyle, currentDisplay, currentStyle, 
     ];
 
     const layouts = [englishLayout, hebrewLayout, emojiLayout];
-    const [layoutIndex, setLayoutIndex] = useState(0);
-    const [history, setHistory] = useState([]);
-    const [ClassStyleButton, setClassStyleButton] = useState('from-now')
+    const [layoutIndex, setLayoutIndex] = useState(0);//באיזו מקלדת משתמשים כרגע
+    const [history, setHistory] = useState([]);//הסטורית הביצועים
+    const [ClassStyleButton, setClassStyleButton] = useState('from-now')//עבור כפתור עיצוב
 
 
     const changeLayout = () => setLayoutIndex(prev => (prev + 1) % layouts.length);
 
+    //עבור כל שינוי מכניסים להסטוריה
     const handleChange = () => {
         if (!currentDisplay) return;
         setHistory(prev => [...prev, {
@@ -50,40 +51,42 @@ function Editor({ text, setText, style, setStyle, currentDisplay, currentStyle, 
             style: style
         }]);
     }
+
+    //עבור כפתור העיצוב
     function Designchange() {
         if (ClassStyleButton === 'from-now')
             setClassStyleButton('everything')
         else
             setClassStyleButton("from-now")
     }
+
     return (
         <div className="page-container">
             <div className="keyboard-layout">
-                { }
+
                 <div className="keyboard-box left-box">
                     <h4>⚙️ פעולות</h4>
                     <div className="buttons-row">
                         <ChangeLangButton changeLayout={changeLayout} />
-                        <UndoButton history={history} setHistory={setHistory} setText={setText} setStyle={setStyle} currentDisplay={currentDisplay} />
+                        <UndoButton setHistory={setHistory} setText={setText} setStyle={setStyle} currentDisplay={currentDisplay} />
                     </div>
                     <div className="buttons-row">
-                        <DeleteButton text={text} setText={setText} handleChange={handleChange} currentDisplay={currentDisplay} />
+                        <DeleteButton setText={setText} handleChange={handleChange} currentDisplay={currentDisplay} />
                     </div>
                     <div className="buttons-row">
-                        <ChangeButtons text={text} setText={setText} historyChange={handleChange} currentDisplay={currentDisplay} />
+                        <ChangeButtons setText={setText} historyChange={handleChange} currentDisplay={currentDisplay} />
                     </div>
                     <div className="inline-control">
                         <SearchButtons text={text} />
                     </div>
                 </div>
 
-                { }
                 <div className="keyboard-box center-box">
                     {layouts[layoutIndex].map((row, i) => (
                         <div className="keyboard-row" key={i}>
                             {row.map((letter) => (
                                 <TextButton
-                                    key={letter === ' ' ? 'space' : letter}
+                                    key={letter}
                                     value={letter}
                                     setText={setText}
                                     currentDisplay={currentDisplay}
@@ -95,7 +98,6 @@ function Editor({ text, setText, style, setStyle, currentDisplay, currentStyle, 
                     ))}
                 </div>
 
-                { }
                 <div className="keyboard-box right-box">
                     <h4>🎨 עיצוב</h4>
                     <div className="buttons-grid">
@@ -126,6 +128,7 @@ function Editor({ text, setText, style, setStyle, currentDisplay, currentStyle, 
                             </>
                         )}
                     </div>
+
                     <div className="buttons-grid size-buttons-row">
                         <SizeButtons
                             style={style}
@@ -139,7 +142,6 @@ function Editor({ text, setText, style, setStyle, currentDisplay, currentStyle, 
                         />
                     </div>
                 </div>
-
             </div>
         </div>
     )

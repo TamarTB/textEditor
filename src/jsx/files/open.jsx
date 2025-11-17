@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-function Open({ texts, setText, styles, setStyle, fileList, setFileList, displays, setDisplays, displayCounter, setDisplayCounter, setCurrentDisplay, isLoggedIn }) {
-    const [selectedFile, setSelectedFile] = useState("");
+function Open({setText, setStyle, fileList, setDisplays, displayCounter, setDisplayCounter, setCurrentDisplay, isLoggedIn }) {
+    const [selectedFile, setSelectedFile] = useState("");//קובץ שנבחר לפתיחה מרשימת הקבצים
 
     const openFile = () => {
         if (isLoggedIn) {
@@ -19,6 +19,7 @@ function Open({ texts, setText, styles, setStyle, fileList, setFileList, display
                 fileName: myFile.fileName,
                 userName:myFile.userName
             };
+            
             setDisplays(prev => [...prev, newDisplay]);
             setCurrentDisplay(newDisplay);
             setDisplayCounter(prev => prev + 1);

@@ -3,6 +3,7 @@ import '../style/display.css'
 
 function Display({ text, style, setCurrentDisplay, deleteDisplay, active, fileName, userName }) {
     const handleDelete = () => {
+        
         // שואל את המשתמש אם לשמור
         const saveChanges = window.confirm("Do you want to save changes?");
         if (saveChanges) {
